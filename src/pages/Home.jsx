@@ -4,17 +4,17 @@ import Container from '../components/container/Container'
 import PostCard from "../components/PostCard"
 
 function Home() {
-  const [posts, setPosts] = useState()
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    appwriteService.getPosts([]).then((post) => {
-      if (posts) {
-        setPosts(post.documents)
+    appwriteService.getPosts([]).then((response) => {
+      if (response && response.documents) {
+        setPosts(response.documents)
       }
     })
   }, [])
 
-  if (posts.length === 0) {
+  if (!posts || posts.length === 0) {
     return (
       <div className='w-full py-8'>
       <Container>
