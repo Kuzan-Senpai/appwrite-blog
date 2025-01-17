@@ -6,7 +6,7 @@ import Input from "./Input"
 import Logo from "./Logo"
 import {useForm} from "react-hook-form"
 import { useDispatch } from "react-redux"
-import {login as authLogin, login} from "../store/authSlice"
+import {setUser as storeLogin} from "../store/authSlice"
 
 function Login() {
     const navigate = useNavigate()
@@ -14,17 +14,18 @@ function Login() {
     const {register, handleSubmit} = useForm()
     const [error, setError] = useState("")
 
-    const Login = async (data) => {
+    const handleLogin = async (data) => {
         setError("")
         try {
-            const session = await authService.login(data)
+            const {email, password} = data
+            const session = await authService.setUser(email, password)
             if (session) {
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(authLogin({userData})) 
+                if (userData) dispatch(storeLogin({userData})) 
                     navigate("/")
             }
         } catch (error) {
-            setError(error.message)
+            setError(error.message || "Failed to login. Please try again.");
         }
     }
 
@@ -44,7 +45,7 @@ function Login() {
                     </Link>
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-                <form onSubmit={handleSubmit(login)} className="mt-8">
+                <form onSubmit={handleSubmit(handleLogin)} className="mt-8">
                     <div className="space-y-5">
                         <Input
                             {...register("email", {required: true})}
@@ -61,7 +62,7 @@ function Login() {
                             placeholder="Password"
                         />
                         <Button type="submit" className="w-full">
-                            Sign in{" "}
+                            Log In
                         </Button>
                     </div>
                 </form>

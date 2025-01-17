@@ -6,7 +6,7 @@ import Input from "./Input"
 import Logo from "./Logo"
 import {useForm} from "react-hook-form"
 import { useDispatch } from "react-redux"
-import {login} from "../store/authSlice"
+import {setUser} from "../store/authSlice"
 
 
 function Signup() {
@@ -21,11 +21,12 @@ function Signup() {
             const userData = await authService.createAccount(data)
             if (userData) {
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(login({userData})) 
+                if (userData) dispatch(setUser({userData})) 
                 navigate("/")
             }
         } catch (error) {
-            setError(error.message)
+            console.error("Signup error:", error)
+            setError(error.message || "Failed to create account. Please Try Again")
         }
     }
 
