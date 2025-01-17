@@ -7,8 +7,8 @@ import { Provider } from 'react-redux'
 import store from './store/store.js'
 
 import Home from "./pages/Home.jsx"
-import Login from "./pages/Login.jsx"
-import Signup from "./pages/Signup.jsx"
+import Login from "./pages/LoginPage.jsx"
+import Signup from "./pages/SignupPage.jsx"
 import Protected from "./components/AuthLayout.jsx"
 import AllPosts from './pages/AllPosts.jsx'
 import AddPost from './pages/AddPost.jsx'
