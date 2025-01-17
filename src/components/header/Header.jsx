@@ -1,13 +1,13 @@
 import React from 'react'
 import Container from '../container/Container'
-import {Logo} from "../Logo"
+import Logo from "../Logo"
 import LogoutBtn from './LogoutBtn'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 
 function Header() {
-    const authService = useSelector((state) => state.auth.status)
+    const authStatus = useSelector((state) => state.auth.status)
     const navigate = useNavigate()
 
     const navItems = [
@@ -32,8 +32,8 @@ function Header() {
             active: authStatus
         },
         {
-            name: "Add Posts",
-            slug: "/add-posts",
+            name: "Add Post",
+            slug: "/add-post",
             active: authStatus
         },
     ]
